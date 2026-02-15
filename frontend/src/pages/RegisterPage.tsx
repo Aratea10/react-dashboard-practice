@@ -37,7 +37,17 @@ export const RegisterPage = () => {
     };
 
     return (
-        <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px' }}>
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            minHeight: '100vh',
+            width: '100%',
+            maxWidth: '400px',
+            margin: '0 auto',
+            padding: '20px'
+        }}>
             <h1>Crear cuenta</h1>
 
             <form onSubmit={handleSubmit}>
