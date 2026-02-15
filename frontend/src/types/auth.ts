@@ -1,11 +1,11 @@
 export interface User {
     id: number;
-    name: string;
+    username: string;
     password: string;
 }
 
 export interface LoginCredentials {
-    name: string;
+    username: string;
     password: string;
 }
 

@@ -1,35 +1,44 @@
 import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import { authService } from '../services/auth.service';
 
-export const LoginPage = () => {
+export const RegisterPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [remember, setRemember] = useState(false);
+    const [passwordConfirm, setPasswordConfirm] = useState('');
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
-    const { login } = useAuth();
     const navigate = useNavigate();
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setError('');
+        setSuccess('');
+
+        if (password !== passwordConfirm) {
+            setError('Las contraseñas no coinciden');
+            return;
+        }
+
         setIsLoading(true);
 
         try {
-            await login({ username, password }, remember);
-            navigate('/products');
+            await authService.register({ username, password });
+            setSuccess('Usuario registrado correctamente. Redirigiendo al login...');
+            setTimeout(() => {
+                navigate('/login');
+            }, 2000);
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Fallo al iniciar sesión. Por favor, comprueba tus credenciales.');
-        } finally {
+            setError(err instanceof Error ? err.message : 'Error al registrar el usuario');
             setIsLoading(false);
         }
     };
 
     return (
         <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px' }}>
-            <h1>Iniciar sesión</h1>
+            <h1>Crear cuenta</h1>
 
             <form onSubmit={handleSubmit}>
                 <div style={{ marginBottom: '15px' }}>
@@ -61,19 +70,28 @@ export const LoginPage = () => {
                 </div>
 
                 <div style={{ marginBottom: '15px' }}>
-                    <label>
-                        <input
-                            type="checkbox"
-                            checked={remember}
-                            onChange={(e) => setRemember(e.target.checked)}
-                        />
-                        {' '}Recordar contraseña
+                    <label htmlFor="password-confirm" style={{ display: 'block', marginBottom: '5px' }}>
+                        Confirmar contraseña
                     </label>
+                    <input
+                        id="password-confirm"
+                        type="password"
+                        value={passwordConfirm}
+                        onChange={(e) => setPasswordConfirm(e.target.value)}
+                        required
+                        style={{ width: '100%', padding: '8px' }}
+                    />
                 </div>
 
                 {error && (
                     <div style={{ color: 'red', marginBottom: '15px' }}>
                         {error}
+                    </div>
+                )}
+
+                {success && (
+                    <div style={{ color: 'green', marginBottom: '15px' }}>
+                        {success}
                     </div>
                 )}
 
@@ -83,16 +101,17 @@ export const LoginPage = () => {
                     style={{
                         width: '100%',
                         padding: '10px',
-                        cursor: isLoading ? 'not-allowed' : 'pointer'
+                        cursor: isLoading ? 'not-allowed' : 'pointer',
+                        marginBottom: '10px'
                     }}
                 >
-                    {isLoading ? 'Cargando...' : 'Entrar'}
+                    {isLoading ? 'Registrando...' : 'Registrarse'}
                 </button>
 
                 <div style={{ marginTop: '20px', textAlign: 'center', fontSize: '14px' }}>
-                    ¿No tienes cuenta?{' '}
-                    <a href="/register" onClick={(e) => { e.preventDefault(); navigate('/register'); }} style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}>
-                        Regístrate aquí
+                    ¿Ya tienes cuenta?{' '}
+                    <a href="/login" onClick={(e) => { e.preventDefault(); navigate('/login'); }} style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}>
+                        Inicia sesión
                     </a>
                 </div>
             </form>

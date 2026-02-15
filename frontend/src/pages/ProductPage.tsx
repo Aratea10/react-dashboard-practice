@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link, Navigate } from 'react-router-dom';
 import type { Product } from '../types';
 import { productsService } from '../services/products.service';
 import { useAuth } from '../hooks/useAuth';
@@ -42,18 +42,17 @@ export const ProductPage = () => {
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Error al eliminar el producto');
             setIsDeleting(false);
-            setShowConfirmDelete(false); 
+            setShowConfirmDelete(false);
         }
     };
 
     if (isLoading) return <div>Cargando producto...</div>;
-    if (error) return <div style={{ color: 'red', padding: '20px' }}>{error}</div>;
-    if (!product) return <div>Producto no encontrado</div>;
+    if (error || !product) return <Navigate to="/404" replace />;
 
     return (
         <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
             <Link to="/products" style={{ color: 'blue', textDecoration: 'underline', marginBottom: '20px', display: 'inline-block' }}>
-                ← Volver al listado
+                ← Volver a la lista de productos
             </Link>
 
             <div style={{ border: '1px solid #ddd', borderRadius: '8px', padding: '20px' }}>
