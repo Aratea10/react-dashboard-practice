@@ -13,7 +13,7 @@ export const authService = {
         });
 
         if (!response.ok) {
-            throw new Error('Login failed');
+            throw new Error('Error de inicio de sesión');
         }
 
         return response.json();
@@ -29,7 +29,7 @@ export const authService = {
         });
 
         if (!response.ok) {
-            throw new Error('Registration failed');
+            throw new Error('Error al registrarse');
         }
     },
 };

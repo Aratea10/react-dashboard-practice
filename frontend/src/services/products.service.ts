@@ -11,7 +11,7 @@ export const productsService = {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to fetch products');
+            throw new Error('Error al obtener los productos');
         }
 
         return response.json();
@@ -25,7 +25,7 @@ export const productsService = {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to fetch product');
+            throw new Error('Error al obtener el producto');
         }
 
         return response.json();
@@ -42,7 +42,7 @@ export const productsService = {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to create product');
+            throw new Error('Error al crear el producto');
         }
 
         return response.json();
@@ -57,7 +57,7 @@ export const productsService = {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to delete product');
+            throw new Error('Error al eliminar el producto');
         }
     },
 };

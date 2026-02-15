@@ -9,7 +9,7 @@ export const tagsService = {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to fetch tags');
+            throw new Error('Error al obtener los tags');
         }
 
         return response.json();
