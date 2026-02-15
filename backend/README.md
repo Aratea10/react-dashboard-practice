@@ -1,15 +1,15 @@
 # Sparrest.js
 
-A [json-server](https://github.com/typicode/json-server) fork to enjoy developing frontend apps without a real backend, but with JWT auth.
+Un fork de [json-server](https://github.com/typicode/json-server) para disfrutar desarrollando aplicaciones frontend sin un backend real, pero con autenticación JWT.
 
-## Setup
+## Configuración
 
-1. Create a `db.json` file with the entities of your DB
-2. Run the server with `npm start` 
-3. Register a user with `POST /auth/register { username: "luke", password: "skywalker" }`
-4. Login to obtain your JWT token: `POST /auth/login { username: "luke", password: "skywalker" }`
-5. Start using `json-server` routes in `/api/<json-server routes>`. You'll need to auth every request by adding an HTTP header: `Authorization: Bearer <JWT token>`
+1. Crea un archivo `db.json` con las entidades de tu base de datos.
+2. Ejecuta el servidor con `npm start`.
+3. Registra un usuario con `POST /auth/register { username: "luke", password: "skywalker" }`.
+4. Inicia sesión para obtener tu token JWT: `POST /auth/login { username: "luke", password: "skywalker" }`.
+5. Comienza a usar las rutas de json-server en `/api/<json-server routes>`. Necesitarás autenticar cada petición añadiendo una cabecera HTTP: `Authorization: Bearer <JWT token>`.
 
-## Uploading files
+## Subir archivos
 
-You can upload files by making a multipart POST request with a file field (with file contents) to `/upload`.
+Puedes subir archivos haciendo una petición POST multipart con un campo file (con el contenido del archivo) a `/upload`.
