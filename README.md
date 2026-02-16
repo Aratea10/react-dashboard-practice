@@ -64,7 +64,7 @@ El servidor del backend se ejecutará en `http://localhost:8000`.
 
 #### Opción 1: Editar manualmente db.json (recomendado)
 
-Abre el archivo `backend/db.json`y añade un usuario en el array de `users`.
+Abre el archivo `backend/db.json`y añade un usuario en el array de `users`, por ejemplo:
 
 ```json
 {
@@ -73,8 +73,8 @@ Abre el archivo `backend/db.json`y añade un usuario en el array de `users`.
     "users": [
         {
             "id": 1,
-            "name": "admin",
-            "password": "$2a$10$tQXqKZ0KdGXvhWJz5rXqJX7Y8h2RzNLDJhGHLqW3QzGvKHhN9fGK"
+            "name": "sara",
+            "password": "123456"
         }
     ]
 }
