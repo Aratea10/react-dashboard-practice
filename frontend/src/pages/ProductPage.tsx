@@ -15,6 +15,13 @@ export const ProductPage = () => {
     const { token } = useAuth();
     const navigate = useNavigate();
 
+    const API_BASE_URL = 'http://localhost:8000';
+    const getImageUrl = (photo: string) => {
+        if (!photo) return '';
+        if (photo.startsWith('http')) return photo;
+        return `${API_BASE_URL}${photo}`;
+    };
+
     useEffect(() => {
         const fetchProduct = async () => {
             if (!token || !id) return;
@@ -56,10 +63,11 @@ export const ProductPage = () => {
             </Link>
 
             <div style={{ border: '1px solid #ddd', borderRadius: '8px', padding: '20px' }}>
-                {product.image ? (
+                {product.photo ? (
                     <img
-                        src={product.image}
+                        src={getImageUrl(product.photo)}
                         alt={product.name}
+                        onError={(e) => { e.currentTarget.src = 'https://placehold.co/600x400?text=No+Image'; }}
                         style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px', marginBottom: '20px' }}
                     />
                 ) : (

@@ -3,7 +3,7 @@ export interface Product {
     name: string;
     price: number;
     tags: string[];
-    image?: string;
+    photo?: string;
     isOnSale: boolean;
     description: string;
     userId: number;
@@ -14,7 +14,7 @@ export interface ProductFormData {
     name: string;
     price: number;
     tags: string[];
-    image?: string;
+    photo?: string;
     isOnSale: boolean;
     description: string;
 }

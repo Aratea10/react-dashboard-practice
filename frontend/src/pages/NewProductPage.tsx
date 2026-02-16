@@ -10,7 +10,7 @@ export const NewProductPage = () => {
         name: '',
         price: 0,
         tags: [],
-        image: '',
+        photo: '',
         isOnSale: false,
         description: '',
     });
@@ -118,14 +118,14 @@ export const NewProductPage = () => {
                 </div>
 
                 <div style={{ marginBottom: '15px' }}>
-                    <label htmlFor="image" style={{ display: 'block', marginBottom: '5px' }}>
+                    <label htmlFor="photo" style={{ display: 'block', marginBottom: '5px' }}>
                         URL de la imagen (opcional)
                     </label>
                     <input
-                        id="image"
+                        id="photo"
                         type="url"
-                        value={formData.image}
-                        onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                        value={formData.photo}
+                        onChange={(e) => setFormData({ ...formData, photo: e.target.value })}
                         style={{ width: '100%', padding: '8px' }}
                     />
                 </div>

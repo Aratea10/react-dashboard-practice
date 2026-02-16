@@ -51,8 +51,39 @@ export const ProductsPage = () => {
         setFilteredProducts(filtered);
     }, [nameFilter, saleFilter, products]);
 
-    if (isLoading) return <div>Cargando productos...</div>;
-    if (error) return <div style={{ color: 'red' }}>{error}</div>;
+    const API_BASE_URL = 'http://localhost:8000';
+
+    const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+        e.currentTarget.src = 'https://placehold.co/600x400?text=No+Image';
+    };
+
+    const getImageUrl = (photo: string) => {
+        if (!photo) return 'https://placehold.co/600x400?text=No+Image';
+        if (photo.startsWith('http')) return photo;
+        return `${API_BASE_URL}${photo}`;
+    };
+
+    if (isLoading) return <div style={{ textAlign: 'center', padding: '50px' }}>Cargando productos...</div>;
+
+    if (error) return (
+        <div style={{ textAlign: 'center', padding: '50px', color: 'red' }}>
+            <p>Error: {error}</p>
+            <button
+                onClick={() => window.location.reload()}
+                style={{
+                    padding: '8px 16px',
+                    backgroundColor: '#0066cc',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    marginTop: '10px'
+                }}
+            >
+                Reintentar
+            </button>
+        </div>
+    );
 
     return (
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
@@ -107,17 +138,23 @@ export const ProductsPage = () => {
                         to={`/products/${product.id}`}
                         style={{ textDecoration: 'none', color: 'inherit' }}
                     >
-                        <div style={{ border: '1px solid #ddd', borderRadius: '8px', padding: '15px', backgroundColor: 'white' }}>
+                        <div style={{ border: '1px solid #ddd', borderRadius: '8px', padding: '15px', backgroundColor: 'white', height: '100%', display: 'flex', flexDirection: 'column' }}>
+                            <img
+                                src={getImageUrl(product.photo || '')}
+                                alt={product.name}
+                                onError={handleImageError}
+                                style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '4px', marginBottom: '10px' }}
+                            />
                             <h3>{product.name}</h3>
                             <p style={{ fontSize: '20px', fontWeight: 'bold', color: '#0066cc' }}>
                                 {product.price}€
                             </p>
                             {product.isOnSale && (
-                                <span style={{ backgroundColor: '#ff4444', color: 'white', padding: '4px 8px', borderRadius: '4px', fontSize: '12px' }}>
+                                <span style={{ backgroundColor: '#ff4444', color: 'white', padding: '4px 8px', borderRadius: '4px', fontSize: '12px', alignSelf: 'flex-start' }}>
                                     ¡OFERTA!
                                 </span>
                             )}
-                            <div style={{ marginTop: '10px' }}>
+                            <div style={{ marginTop: 'auto', paddingTop: '10px' }}>
                                 {product.tags.map((tag) => (
                                     <span
                                         key={tag}
